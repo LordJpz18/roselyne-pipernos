@@ -4,37 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roselyne Pipernos - Une Histoire de Résilience</title>
+    
+    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate on Scroll (AOS) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <!-- lightGallery for Media -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-video.min.css" />
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --primary-color: #1e3a8a;
-            --secondary-color: #3b82f6;
-            --text-color: #1a202c;
-            --background-color: #f7fafc;
+            --primary-color: #2c3e50; /* A deep, sophisticated slate blue */
+            --secondary-color: #3498db; /* A gentle, hopeful blue */
+            --text-color: #34495e;
+            --background-color: #fdfdfd;
+            --card-bg-color: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Lato', sans-serif;
             line-height: 1.8;
             color: var(--text-color);
             background-color: var(--background-color);
-            font-size: 25px;
+            font-size: 18px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
         }
 
         .diary-entry {
-            background: #fff;
-            border-left: 4px solid var(--primary-color);
-            padding: 2rem;
+            background: var(--card-bg-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 2.5rem;
             margin: 2rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .diary-entry:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
 
         .diary-date {
@@ -45,12 +70,8 @@
         }
 
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            padding: 0.5rem 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -58,18 +79,17 @@
             position: relative;
             transition: color 0.3s ease;
         }
-
         nav a::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #fff;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
             transition: width 0.3s ease;
         }
-
         nav a:hover::after {
             width: 100%;
         }
@@ -77,370 +97,114 @@
         .mobile-menu {
             display: none;
         }
-
         @media (max-width: 768px) {
-            .mobile-menu {
-                display: block;
-            }
-
-            .desktop-menu {
-                display: none;
-            }
-
-            .diary-entry {
-                padding: 1rem;
-            }
+            .mobile-menu { display: block; }
+            .desktop-menu { display: none; }
         }
 
-        .comment-section {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* --- MEDIA GALLERY STYLES --- */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
 
-        .comment-form textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            resize: vertical;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            transition: transform 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        
-
-        /* Styles pour la galerie */
-        .media-container {
+        .media-item {
             position: relative;
+            display: block;
             overflow: hidden;
             border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            aspect-ratio: 1 / 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .media-container:hover {
-            transform: scale(1.02);
+        .media-item:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
-
-        .media-container img,
-        .media-container video {
+        
+        .media-item img,
+        .media-item video {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .media-container:hover img,
-        .media-container:hover video {
-            transform: scale(1.05);
+        .media-item:hover img,
+        .media-item:hover video {
+            transform: scale(1.1);
         }
 
         .media-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s ease;
+            color: white;
+            font-size: 2.5rem;
         }
-
-        .media-container:hover .media-overlay {
+        .media-item:hover .media-overlay {
             opacity: 1;
         }
-
-        .media-overlay i {
-            color: white;
-            font-size: 2rem;
-        }
-
-        /* Style pour les vidéos YouTube responsives */
-        .youtube-container {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .youtube-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-        }
-
-        /* Style spécifique pour la vidéo YouTube dans la section remerciements */
-        .youtube-container.remerciements {
-            width: 400px;
-            height: 400px;
-        }
-
-        .youtube-container.remerciements iframe {
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.active {
+        
+        /* --- NEW: CSS FIX FOR VIDEO CENTERING IN LIGHTBOX --- */
+        .lg-video-cont {
             display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90vh;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
-        .modal-content img,
-        .modal-content video {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-            width: auto;
-            height: auto;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
+        /* --- General Improvements --- */
+        .btn {
+            background: var(--secondary-color);
             color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 10px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px; /* Pill shape */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
         }
 
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
+        .contact-form input,
+        .contact-form textarea {
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
-        .modal-nav button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background 0.3s ease;
-        }
-
-        .modal-nav button:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .modal-caption {
-            color: white;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 1.2rem;
-        }
-
-        /* Grille responsive pour les médias */
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        @media (max-width: 768px) {
-            .media-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Ajustements pour les vidéos dans la grille */
-        .media-grid video {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16/9;
-            object-fit: contain;
-            border: none;
-            border-radius: 8px;
-            background-color: #f0f4f8;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .media-grid video:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .media-grid .media-container {
-            aspect-ratio: 16/9;
-            overflow: hidden;
-            border-radius: 8px;
-            background-color: #f0f4f8;
-            padding: 4px;
-        }
-
-        .media-grid .media-container:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Ajustement pour le mode plein écran */
-        .modal-content video:fullscreen {
-            width: 100vw;
-            height: 100vh;
-            object-fit: contain;
-            background-color: #f0f4f8;
-        }
-
-        .modal-content video::-webkit-full-screen {
-            width: 100vw;
-            height: 100vh;
-            object-fit: contain;
-            background-color: #f0f4f8;
-        }
-
-        .modal-content video:-moz-full-screen {
-            width: 100vw;
-            height: 100vh;
-            object-fit: contain;
-            background-color: #f0f4f8;
-        }
-
-        /* Style spécifique pour les vidéos de rééducation */
-        #parcours-videos video {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16/9;
-            object-fit: contain;
-            background-color: #000;
-        }
-
-        #parcours-videos .grid > div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #parcours-videos .grid > div video {
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto;
-        }
-
-        /* Ajustement spécifique pour la section rééducation */
-        #parcours-videos .mb-16 .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 1rem;
-        }
-
-        #parcours-videos .mb-16 .grid > div {
-            background: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #parcours-videos .mb-16 .grid > div video {
-            border-radius: 0.5rem;
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16/9;
-            object-fit: contain;
-        }
-
-        .media-grid .text-sm {
-            font-size: 1.25rem;
-            line-height: 1.5;
-            margin-top: 0.75rem;
-            color: #4a5568;
-        }
-
-        .media-grid .text-gray-600 {
-            color: #4a5568;
-        }
-
-        .text-center p.mt-2 {
-            margin-top: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .text-center img, 
-        .text-center .youtube-container {
-            margin-bottom: 0.5rem;
-        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <header class="text-white py-4 sticky top-0 z-10">
+<body class="bg-gray-50">
+
+    <header class="text-white py-4 sticky top-0 z-50">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-xl sm:text-2xl font-bold">Roselyne Pipernos</h1>
+            <h1 class="text-xl sm:text-2xl font-bold" style="font-family: 'Playfair Display', serif;">Roselyne Pipernos</h1>
             <button class="mobile-menu md:hidden text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
+                <i class="fas fa-bars text-2xl"></i>
             </button>
             <nav class="desktop-menu">
                 <ul class="flex flex-wrap space-x-4 sm:space-x-6">
-                    <li><a href="#presentation" class="text-base sm:text-lg">Présentation</a></li>
-                    <li><a href="#temoignage" class="text-base sm:text-lg">Témoignage</a></li>
-                    <li><a href="#parcours-videos" class="text-base sm:text-lg">Parcours en Image</a></li>
-                    <li><a href="#remerciements" class="text-base sm:text-lg">Remerciements</a></li>
-                    <li><a href="#commentaires" class="text-base sm:text-lg">Commentaires</a></li>
-                    <li><a href="#contact" class="text-base sm:text-lg">Contact</a></li>
+                    <li><a href="#presentation">Présentation</a></li>
+                    <li><a href="#temoignage">Témoignage</a></li>
+                    <li><a href="#parcours-videos">Parcours</a></li>
+                    <li><a href="#remerciements">Remerciements</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -448,708 +212,197 @@
 
     <main class="container mx-auto px-4 py-8">
         <!-- Présentation Section -->
-        <section id="presentation" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-blue-900 mb-6">Présentation</h2>
-            <div class="diary-entry">
-                <h3 class="text-xl sm:text-2xl font-medium mb-4">Préface</h3>
-                <p class="mb-4">
-                    <img src="aux/rosy.jpg" alt="Portrait de Roselyne Pipernos" class="rounded-lg shadow-md w-[360px] h-[390px] object-cover mx-auto mt-6 mb-8" data-aos="zoom-in">
-                    Dans l'automne d'une vie, lorsque les années se tissent en une tapisserie d'expériences où chaque fil narre une lutte, une victoire ou une perte, une personne de plus de soixante-dix ans se tient à l'orée d'un monde en pleine métamorphose. Elle contemple une ère où l'intelligence artificielle (IA), telle une divinité contemporaine, façonne des horizons jadis inconcevables. Vivre avec son temps, pour ces âmes riches d'histoire, n'est pas une simple nécessité, mais une exhortation à danser avec l'inconnu, à embrasser les prodiges d'une époque où la science redéfinit les contours de l'humain.
-                </p>
-                <p class="mb-4">
-                    Le domaine médical, porté par les ailes de l'IA, s'est mué en un sanctuaire d'espoir où les frontières du possible s'élargissent sans cesse. Les algorithmes, tels des oracles modernes, scrutent des constellations de données cliniques, prédisant l'évolution des pathologies avec une précision qui confine à la prescience. Dans le champ de la neurologie, et particulièrement dans la lutte contre la maladie de Parkinson, les avancées techniques s'apparentent à des miracles forgés par la raison.
-                </p>
-                <p class="mb-4">
-                    Les implants cérébraux, ces dispositifs d'une sophistication extrême, incarnent une révolution silencieuse. La stimulation cérébrale profonde (SCP), pilier de la prise en charge du Parkinson, a atteint des sommets d'élégance technologique. Les électrodes, d'une finesse presque poétique, sont désormais implantées avec une précision guidée par des modèles d'IA qui cartographient les réseaux neuronaux en trois dimensions. Ces systèmes, ajustés en temps réel par des algorithmes adaptatifs, dialoguent avec les neurones, apaisant les tremblements, restaurant l'équilibre, et rendant à l'âme sa maîtrise sur le corps.
-                </p>
-                <p class="mb-4">
-                    <iframe src="https://www.youtube.com/embed/zQmisQPoR3A?si=PHeXs-c_pRHqgaAR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" class="rounded-lg shadow-md w-full max-w-[560px] h-[315px] object-cover mx-auto mt-6" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </p>
-                <p class="mb-6">
-                    Au-delà de la prouesse technique, ces avancées incarnent l'esprit d'une époque : une époque où l'âge n'est plus un refuge dans le passé, mais un tremplin vers l'avenir. C'est dans cet esprit que s'ouvre l'histoire de Roselyne Pipernos, une femme dont le courage et la ténacité illuminent les pages qui suivent.
-                </p>
+        <section id="presentation" class="mb-16" data-aos="fade-up">
+            <div class="text-center">
+                <img src="aux/rosy.jpg" alt="Portrait de Roselyne Pipernos" class="rounded-full shadow-lg w-48 h-48 object-cover mx-auto -mt-24 mb-8 border-4 border-white" data-aos="zoom-in">
+                <h2 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-4" style="font-family: 'Playfair Display', serif;">Une Histoire de Résilience</h2>
+                <p class="text-xl text-gray-500 max-w-3xl mx-auto">Le parcours inspirant de Roselyne Pipernos face à la maladie de Parkinson, un témoignage d'espoir et de courage.</p>
+            </div>
+            <div class="diary-entry mt-12">
+                <h3 class="text-2xl sm:text-3xl font-medium mb-4">Préface</h3>
+                <p class="mb-4">Dans l'automne d'une vie, lorsque les années se tissent en une tapisserie d'expériences où chaque fil narre une lutte, une victoire ou une perte, une personne de plus de soixante-dix ans se tient à l'orée d'un monde en pleine métamorphose. Elle contemple une ère où l'intelligence artificielle (IA), telle une divinité contemporaine, façonne des horizons jadis inconcevables. Vivre avec son temps, pour ces âmes riches d'histoire, n'est pas une simple nécessité, mais une exhortation à danser avec l'inconnu, à embrasser les prodiges d'une époque où la science redéfinit les contours de l'humain.</p>
+                <p class="mb-4">Le domaine médical, porté par les ailes de l'IA, s'est mué en un sanctuaire d'espoir où les frontières du possible s'élargissent sans cesse. Les algorithmes, tels des oracles modernes, scrutent des constellations de données cliniques, prédisant l'évolution des pathologies avec une précision qui confine à la prescience. Dans le champ de la neurologie, et particulièrement dans la lutte contre la maladie de Parkinson, les avancées techniques s'apparentent à des miracles forgés par la raison.</p>
+                <div class="my-8 text-center" data-aos="fade-up">
+                    <iframe class="rounded-lg shadow-md w-full max-w-[640px] h-auto aspect-video object-cover mx-auto" src="https://www.youtube.com/embed/zQmisQPoR3A?si=PHeXs-c_pRHqgaAR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p class="mb-4">Au-delà de la prouesse technique, ces avancées incarnent l'esprit d'une époque : une époque où l'âge n'est plus un refuge dans le passé, mais un tremplin vers l'avenir. C'est dans cet esprit que s'ouvre l'histoire de Roselyne Pipernos, une femme dont le courage et la ténacité illuminent les pages qui suivent.</p>
             </div>
         </section>
 
         <!-- Témoignage Section -->
-        <section id="temoignage" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl text-blue-900"><b>Témoignage</b></h2>
+        <section id="temoignage" class="mb-16" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-800 mb-8">Témoignage</h2>
             <div class="diary-entry">
-                <h3 class="text-xl sm:text-2xl font-medium mb-4 border-b-2 border-blue-900 pb-2"><b>L'Histoire de Roselyne</b></h3>
-                <p class="mb-4">
-                    Je m'appelle Roselyne Pipernos, et à 73 ans, j'ai traversé des vallées obscures où le corps trahit l'âme, où la volonté chancelle face à une maladie implacable. En 2019, dans une salle austère d'un hôpital parisien, le diagnostic est tombé : Parkinson. Ce mot, lourd comme une sentence, planait déjà dans mon esprit. Depuis vingt ans, un neurologue attentif m'accompagnait, scrutant les prémices de la maladie dans le frémissement discret de mes mains ou la raideur insidieuse de mes pas.
-                </p>
-                <p class="mb-4">
-                    Pendant cinq ans, j'ai cherché un espoir dans ce brouillard. Puis, j'ai rencontré un neurochirurgien d'exception. Sa présence allait au-delà d'un simple échange médical : il semblait sonder mon âme pour y déceler une étincelle de courage. Après des mois de réflexion, j'ai pris une décision audacieuse : le 13 février 2024, je subirais une opération pour poser un stimulateur cérébral.
-                </p>
-                <p class="mb-4">
-                    L'intervention fut un succès, mais la victoire fut de courte durée. Peu après, mes jambes se mirent à trembler avec une intensité nouvelle. Une chute brutale me précipita à l'hôpital : le stimulateur, délogé, menaçait ma santé. Le 21 mars 2024, une opération d'urgence fut nécessaire pour le retirer. Le 7 mai 2024, une troisième opération marqua un tournant décisif. À mon réveil, un silence étrange m'enveloppa : mes jambes ne tremblaient plus. Ce n'était pas seulement l'absence de symptômes, c'était une renaissance.
-                </p>
-                <p class="mb-4">
-                    Encouragée, j'ai désactivé le stimulateur pendant dix jours, puis 35 jours. Aucun tremblement, aucune rechute. Mon neurochirurgien expliqua une hypothèse fascinante : ce nouveau placement des électrodes semblait avoir réécrit les règles du jeu. Aujourd'hui, je marche, je vis, je respire. Le Parkinson, tapi dans l'ombre, n'a pas disparu, mais il ne régit plus mes jours.
-                </p>
+                <h3 class="text-2xl sm:text-3xl font-medium mb-4 border-b-2 border-gray-200 pb-4">L'Histoire de Roselyne</h3>
+                <p class="mb-4">Je m'appelle Roselyne Pipernos, et à 73 ans, j'ai traversé des vallées obscures où le corps trahit l'âme, où la volonté chancelle face à une maladie implacable. En 2019, dans une salle austère d'un hôpital parisien, le diagnostic est tombé : Parkinson. Ce mot, lourd comme une sentence, planait déjà dans mon esprit. Depuis vingt ans, un neurologue attentif m'accompagnait, scrutant les prémices de la maladie dans le frémissement discret de mes mains ou la raideur insidieuse de mes pas.</p>
+                <p class="mb-4">Pendant cinq ans, j'ai cherché un espoir dans ce brouillard. Puis, j'ai rencontré un neurochirurgien d'exception. Sa présence allait au-delà d'un simple échange médical : il semblait sonder mon âme pour y déceler une étincelle de courage. Après des mois de réflexion, j'ai pris une décision audacieuse : le 13 février 2024, je subirais une opération pour poser un stimulateur cérébral.</p>
+                <p class="mb-4">L'intervention fut un succès, mais la victoire fut de courte durée. Peu après, mes jambes se mirent à trembler avec une intensité nouvelle. Une chute brutale me précipita à l'hôpital : le stimulateur, délogé, menaçait ma santé. Le 21 mars 2024, une opération d'urgence fut nécessaire pour le retirer. Le 7 mai 2024, une troisième opération marqua un tournant décisif. À mon réveil, un silence étrange m'enveloppa : mes jambes ne tremblaient plus. Ce n'était pas seulement l'absence de symptômes, c'était une renaissance.</p>
+                <p class="mb-4">Encouragée, j'ai désactivé le stimulateur pendant dix jours, puis 35 jours. Aucun tremblement, aucune rechute. Mon neurochirurgien expliqua une hypothèse fascinante : ce nouveau placement des électrodes semblait avoir réécrit les règles du jeu. Aujourd'hui, je marche, je vis, je respire. Le Parkinson, tapi dans l'ombre, n'a pas disparu, mais il ne régit plus mes jours.</p>
             </div>
         </section>
 
         <!-- Parcours en Image Section -->
-        <section id="parcours-videos" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-blue-900 mb-6">Parcours en Image</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-xl sm:text-2xl font-medium mb-4"><b>Les Étapes du Parcours de Roselyne</b></h3>
-                <p class="mb-6"><b>Découvrez le parcours de Roselyne à travers quatre étapes marquantes.</b></p>
-
-                <!-- Étape 1: Avant le diagnostic -->
-                <div class="mb-16">
-                    <h4 class="text-lg sm:text-xl font-semibold text-blue-800 mb-6">1. Le Diagnostic</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-fit mx-auto">
-                                <source src="aux/dance.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            <p class="mt-2 text-sm text-center"><b>Tremblements visibles.</b></p>
-                        </div>
-                        <div>
-                            <img src="aux/med.jpg" alt="Roselyne partageant les premiers symptômes de Parkinson" class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                            <p class="mt-2 text-sm  text-center"><b>Rencontres avec des neurologues et premières observations médicales.</b></p>
-                        </div>
+        <section id="parcours-videos" class="mb-16" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-800 mb-8">Parcours en Images et Vidéos</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <!-- Étape 1: Le Diagnostic -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-6">1. Le Diagnostic</h3>
+                    <div class="media-grid" id="gallery-diagnostic">
+                        <a href="aux/dance.mp4" class="media-item" data-sub-html="<h4>Tremblements visibles avant le diagnostic.</h4><p>Les premiers signes de la maladie commençaient à impacter le quotidien.</p>">
+                            <video muted preload="metadata"><source src="aux/dance.mp4#t=0.5" type="video/mp4"></video>
+                            <div class="media-overlay"><i class="fas fa-play"></i></div>
+                        </a>
+                        <a href="aux/med.jpg" class="media-item" data-sub-html="<h4>Premières observations médicales.</h4><p>Rencontres avec des neurologues pour comprendre et nommer la maladie.</p>">
+                            <img src="aux/med.jpg" alt="Consultation médicale">
+                            <div class="media-overlay"><i class="fas fa-search-plus"></i></div>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Étape 2: Les Opérations -->
-                <div class="mb-16">
-                    <h4 class="text-lg sm:text-xl font-semibold text-blue-800 mb-6">2. Les Opérations</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/op.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            <p class="mt-2 text-sm text-center"><b>Après l'opération</b></p>
-                        </div>
-                        <div>
-                            <img src="aux/op1.jpg" alt="Pose du stimulateur cérébral en février 2024" class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                            <p class="mt-2 text-sm text-gray-600 text-center"><b>Pose du stimulateur cérébral.</b></p>
-                        </div>
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-6">2. Les Opérations</h3>
+                    <div class="media-grid" id="gallery-operations">
+                        <a href="aux/op.mp4" class="media-item" data-sub-html="<h4>Juste après l'opération.</h4><p>Les premiers moments de récupération, remplis d'espoir.</p>">
+                            <video muted preload="metadata"><source src="aux/op.mp4#t=0.5" type="video/mp4"></video>
+                            <div class="media-overlay"><i class="fas fa-play"></i></div>
+                        </a>
+                        <a href="aux/op1.jpg" class="media-item" data-sub-html="<h4>Pose du stimulateur cérébral.</h4><p>Une étape chirurgicale cruciale, porteuse d'un immense changement.</p>">
+                            <img src="aux/op1.jpg" alt="Pose du stimulateur">
+                            <div class="media-overlay"><i class="fas fa-search-plus"></i></div>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Étape 3: La Rééducation -->
-                <div class="mb-16">
-                    <h4 class="text-lg sm:text-xl font-semibold text-blue-800 mb-6">3. La Rééducation</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/balneo.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            <p class="mt-2 text-sm text-gray-600 text-center"><b>Exercices de balnéothérapie.</b></p>
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/aquagym.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            <p class="mt-2 text-sm text-gray-600 text-center"><b>Exercices pour travailler la fluidité des mouvements.</b></p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/elastic.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            <p class="mt-2 text-sm text-gray-600 text-center"><b>Exercices avec élastiques pour renforcer les muscles.</b></p>
-                        </div>
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-6">3. La Rééducation</h3>
+                    <div class="media-grid" id="gallery-reeducation">
+                        <a href="aux/balneo.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
+                            <video muted preload="metadata"><source src="aux/balneo.mp4#t=0.5" type="video/mp4"></video>
+                            <div class="media-overlay"><i class="fas fa-play"></i></div>
+                        </a>
+                        <a href="aux/aquagym.mp4" class="media-item" data-sub-html="<h4>Aquagym pour la fluidité.</h4><p>Travailler les mouvements et la coordination dans l'eau.</p>">
+                            <video muted preload="metadata"><source src="aux/aquagym.mp4#t=0.5" type="video/mp4"></video>
+                            <div class="media-overlay"><i class="fas fa-play"></i></div>
+                        </a>
+                        <a href="aux/elastic.mp4" class="media-item" data-sub-html="<h4>Renforcement musculaire.</h4><p>Utilisation d'élastiques pour regagner force et stabilité.</p>">
+                            <video muted preload="metadata"><source src="aux/elastic.mp4#t=0.5" type="video/mp4"></video>
+                            <div class="media-overlay"><i class="fas fa-play"></i></div>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Étape 4: La Renaissance -->
-                <div class="mb-16">
-                    <h4 class="text-lg sm:text-xl font-semibold text-blue-800 mb-6">4. Exercices de rééducation dirigés par le kinésithérapeute </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/ts1.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/ts2.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                             
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/t1.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/t2.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                           
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/t3.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                        
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/t4.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/train1.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                           
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/t5.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                             
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/s1.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                        
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/s2.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/s3.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                        
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/s4.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/s5.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/s6.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/s7.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                        
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/p1.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/p2.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/p3.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-            
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/ex.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            
-                        </div>
-                        <div>
-                            <video controls class="rounded-lg shadow-md w-[400px] h-[225px] object-cover mx-auto">
-                                <source src="aux/danse.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la balise vidéo.
-                            </video>
-                            <p class="mt-2 text-sm text-gray-600 text-center"><b>Au bout de toute la rééducation, les résultats sont plus que visibles.</b></p>
-            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Remerciements Section -->
-        <section id="remerciements" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-blue-900 mb-6">Remerciements</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <p class="mb-4">
-                    Ce chemin, je ne l'ai pas parcouru seule. Une troupe précieuse m'a accompagnée : des kinésithérapeutes qui ont réappris à mes muscles la fluidité du mouvement, des professeurs de danse qui ont insufflé du rythme à mes pas, des entraîneurs de boxe qui m'ont enseigné à défier l'adversité. Ensemble, nous avons documenté cette aventure, à la fois scientifique et rebelle.
-                </p>
-                <p class="mb-6">
-                    Ma gratitude va également à l'équipe médicale, dont le professionnalisme et la rigueur ont été salvateurs, et à mon neurochirurgien, dont l'écoute et la vision audacieuse ont changé le cours de ma vie. Mon histoire est un hymne à la ténacité, à l'écoute de soi, et à ces moments où l'humain, fragile et obstiné, défie l'inéluctable. Merci au laboratoire Cerballiance à Charonne et à toute l'équipe.
-                </p>
-                <p class="mb-6">
-                    Merci à ma famille, à tous mes amis de longue date et à mes collègues.
-                </p>
-                <div class="grid grid-cols-1 gap-8 mt-8">
-                    <h4 class="text-lg sm:text-xl font-semibold text-blue-800 mb-6">L'équipe médicale :</h4>
-                    <div class="text-center">
-                        <img src="aux/paf.jpg" alt="Pr. Stéphane Palfy neurochirurgien" class="rounded-lg shadow-md w-[400px] h-[400px] object-cover mx-auto">
-                        <p class="mt-2"><a href="https://www.echosciences-grenoble.fr/evenements/therapie-genique-dans-la-maladie-de-parkinson-etats-de-l-art-et-prospectives-par-le-professeur-stephane-palfi" class="hover:text-blue-600"><b>Pr. Stéphane PALFI Neurochirurgien</b>(cliquez).</a><br> Brillant autant sur le plan médical que sur le plan humain, Il m'a soignée avec une écoute et une rigueur sans faille.</br></p>
-                        <p class="mt-1 text-sm"><a href="https://www.ijclab.in2p3.fr/actualite/beams-la-start-up-ijclaboise-laureate-du-concours-i-lab-2023/" class="hover:text-blue-600">Lien de sa start-up de recherche.</a></p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="text-center">
-                            <img src="aux/doc.jpg" alt="Docteur" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Dr. Yara BEAUGENDRE  Neurologue spécialiste du Parkinson à l'hopital Henri Mondor</b>.
-                            <br>Toujours rassurante et positive, elle m'a accompagnée sans faille, jusqu'au bout du processus.</br>
-                            </p>
-                        </div>
-                        <div class="text-center">
-                            <p class="mb-4">
-                                <div class="text-center">
-                                    <img src="aux/senova.png" alt="docteur" class="rounded-lg shadow-md w-[400px] h-[400px] object-cover mx-auto">
-                                </div>
-                                <p class="mt-2"><a href="https://youtu.be/rhhxQi9Ynpg?si=L3HOMVE8rTrlQNnr" class="hover:text-blue-600"><b>Dr. Yann-Suhan SÉNOVA   Neurochirurgien</b> (cliquez).</a> <br>L' "ingénieur du cerveau", c'est un brillant chercheur et un excellent chirurgien.</br></p>
-                            </p>
-                        </div>
-                        <div class="text-center">
-                            <img src="aux/julie.jpg" alt="Infirmière" class="rounded-lg shadow-md w-[400px] h-[400px] object-cover mx-auto">
-                            <p class="mt-2"><b>Dr. Julie Schuler    Médécin généraliste à la fondation Rothschild</b>. <br>Tel un médécin de famille d'autrefois, elle s'est entièrement dévouée à mon état de santé de bout en bout en me faisant grâce de sa disponibilité et de son professionnalisme.</br></p>
-                        </div>
-                        
-                        <div class="text-center">
-                            <img src="aux/guru.jpg" alt="Infirmière" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><a href="https://www.maquestionmedicale.fr/medecins/neurologie/creteil/dr-gurruchaga-jean-marc/" class="hover:text-blue-600"><b> Dr J.M. GURRUCHAGA  Neurologue à Henri Mondor</b> (cliquez).</a> <br>Il a su tel un virtuose manier les appareils de stimulation afin que je puisse ressentir à nouveau mon humanité, son professionnalisme et son savoir-faire m'ont permis de progresser de manière significative.</br>.</p>
-                        </div>
-                        <div class="text-center">
-                            <img src="aux/gus.jpg" alt="Christophe, infirmier" class="rounded-lg shadow-md w-[400px] h-[400px] object-cover mx-auto">
-                           <p class="mt-2"><b>Christophe et Bernadette infirmiers</b>. Depuis tant d'années, j'ai eu la chance de pouvoir compter sur eux, à la moindre occasion, les plus urgentes comme les plus relatives.</p>
-                            <p class="mt-2 text-sm text-gray-600">
-                                <a href="aux/gus.mp4" target="_blank" class="hover:text-blue-600 cursor-pointer">
-                                    (cliquez pour voir la vidéo)
-                                </a>
-                            </p>
-                        </div>
-                        <div class="text-center">
-                            <img src="aux/inf.jpg" alt="Infirmière" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Carole infirmière de nuit à Henri Mondor</b>, très professionnelle, très attentive et très perspicace.</p>
-                        </div>
-                        <div class="text-center">
-                            <img src="aux/sec.jpg" alt="secrétaire" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Diogou DRAME sévrétaire du Pr. Palfi à Henri Mondor</b>, Elle m'a témoignée une dévotion et une gentillesse aussi remarquable que son professionnalisme.</p>
-                        </div>
-                        <div class="text-center">
-                            <img src="aux/florian.jpg" alt="kiné" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Julien Florian  Kinésithérapeute</b><br>Kiné hors pair, il adapte ses soins selon vos maux et vos besoins. Sa gentillesse, son amabilité et son attention sont tout autant remarquables que ses soins.</p>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="mt-32">
-                    <h3 class="text-xl font-semibold text-blue-900 mb-4">Autres intervenants, Famille et Amis</h3>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="text-center">
-                            <img src="aux/thierry.jpg" alt="Fam" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Thierry Claeys-Smadja</b> <br>Ingénieur d'études en Histoire moderne et contemporaine au 
-                                Centre Roland Mousnier</p>
-                        </div>
-                        <div class="text-center">
-                            <img src="aux/carole.jpg" alt="Fam" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2">Carole Claeys-Smadja et son fils Raphaël</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/sylvie.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2">Mon amie Sylvie Lipzig "La Starlette" avec qui nous sommes liées depuis plus de 45 ans. Toujours là pour moi et vice-versa.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/amis.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2">Mes amies radiologue qui m'ont soignée depuis mes 18 ans. Je les ai surnommées mes porte-bonheur.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/carlos.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Carlos</b> mon ami entrepreneur à Dax. Serviable, adorable, un ami sur qui on peut toujours compter. Il a une très belle famille avec de très belles valeurs.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/Cindy.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Cindy et Sandra du laboratoire Cerballiance.</b> Elles m'ont agréablement accompagnée depuis plusieurs années.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/Sandra.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Sandra</b> du laboratoire Cerballiance</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/sophie.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Sophie de Rilleupéroux</b><br> Adorable, attentionnée, elle n'a pas cessé de prendre de mes nouvelles et me témoigne un soutien indéfectible</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/knath.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Nathanyel et Karima</b> <br> Toujours de bonne parole à mon égare, serviables, je peux toujours compter sur eux.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/philippe.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Philippe, ORL à la retraite</b> <br> Riche dans le cœur et dans les actes, il se distingue par des qualités intrinsèques hors normes et hors du commun. C'est un soutien indéfectible, sur qui je peux toujours compter tout commme il pourra toujours compter sur moi.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/ruben.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Ruben kabla, Angiologue</b> <br> Parle peu mais agit beaucoup et de façon significative notamment lorsque j'étais dans une situation délicate. Il est véritablement dévoué à son travail et à ses patients.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/martine.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Martine et Marcel</b> <br> Nous nous sommes connus lors d'une croisière et depuis cette occasion on ne s'est plus quitté et leur assistance lors des moments les plus difficiles m'a significativement marquée.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/syl.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Sylvie Robert</b>.<br> Ma meilleure amie par tous les temps, omniprésente dans ma vie dans les bons moments comme dans les plus intenses. Nous partageons depuis plus d'une vingtaine d'années une amitié qui s'est muée en une solide fraternité.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/frank.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Franklin Robert</b>.<br> Nous nous sommes connus lorsqu'il était en service au Ministère de l'équipement sous le PR. Chirac</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/ben.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2"><b>Benjamin Faleyras  auteur compositeur</b>.<br> On partage une belle et longue amitié.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/andree.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2">Andrée mon amie de Toulon. <br> Elle m'a apportée beaucoup de positivité et un soutien sans faille.</p>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="aux/mur.jpg" alt="amis" class="rounded-lg shadow-md w-[400px] h-[400px] object-contain mx-auto bg-gray-100">
-                            <p class="mt-2">Murielle infirmière et son compagnon à la cure de Dax, Très positive et réconfortante.</p>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="mt-32">
-                    <ul class="list-disc pl-6 space-y-6">
-                        <li><b>Agnès Frétille Rhumatologue à Dax.</b><br>Compétente, généreuse, elle m'a fait part de son temps pour m'aider avant l'opération.</li>
-                        <li><b>Yohann Millotte  Kinésithérapeute Balnéothérapie</b>.</li>
-                        <li>Hattifa de Dax, elle m'a beaucoup soutenue pendant mon hospitalisation et elle m'envoie toujours des petits messages réconfortants.</li>
-                        <li>Ruben Dentiste, généreux, arrangeant.</li>
-                        <li><b>Jean Philippe ZANGA Élève Ingénieur en Informatique, concepteur du site web</b>.</li>
-                    </ul>
-                </div>
-
                 
-            </div>
-        </section>
-
-        <!-- Message d'espoir Section -->
-        <section id="message-espoir" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-blue-900 mb-6">Message d'espoir</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="diary-entry">
-                    <p class="mb-4">
-                        J'ai écrit ce recueil dans l'intention de transmettre aux personnes malades, du courage et de la ténacité, car demain ce sera votre tour ! 
-                        Le fait de vivre désormais sans stimulation cérébrale me confère le véritable privilège de me prévaloir un parcours unique,
-                        j'invite les personnes concernées à sauter le pas afin de pouvoir peut être apercevoir la lumière au bout du tunnel.
-                        <!-- Votre message d'espoir sera placé ici -->
-                    </p>
-                    <div class="flex justify-center">
-                        <p> </p>
-                        <div class="youtube-container" style="width: 100%; max-width: 400px; height: auto; aspect-ratio: 16/9;">
-                            <iframe src="https://www.youtube.com/embed/NuxAXG6aQCM?si=2Ivm9F7CQRdUWJtR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 100%; height: 100%;"></iframe>
-                        </div>
+                <!-- Étape 4: Exercices dirigés -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-2">4. Exercices avec Florian Julien</h3>
+                    <p class="text-gray-500 mb-6">Une série d'exercices ciblés pour reconquérir chaque mouvement.</p>
+                    <div class="media-grid" id="gallery-florian">
+                        <a href="aux/ts1.mp4" class="media-item" data-lg-size="480-848" data-lg-video='{"source": [{"src":"aux/ts1.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>Exercice 1</h4>"><video muted preload="metadata"><source src="aux/ts1.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
+                        <a href="aux/ts2.mp4" class="media-item" data-lg-size="1280-720" data-lg-video='{"source": [{"src":"aux/ts2.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>Exercice 2</h4>"><video muted preload="metadata"><source src="aux/ts2.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
+                        <a href="aux/t1.mp4" class="media-item" data-lg-size="1280-720" data-lg-video='{"source": [{"src":"aux/t1.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>Exercice 3</h4>"><video muted preload="metadata"><source src="aux/t1.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
+                        <a href="aux/t2.mp4" class="media-item" data-lg-size="1280-720" data-lg-video='{"source": [{"src":"aux/t2.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>Exercice 4</h4>"><video muted preload="metadata"><source src="aux/t2.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
+                        <a href="aux/train1.mp4" class="media-item" data-lg-size="1280-720" data-lg-video='{"source": [{"src":"aux/train1.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>Marche sur le tapis</h4>"><video muted preload="metadata"><source src="aux/train1.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
+                        <a href="aux/p1.mp4" class="media-item" data-lg-size="1280-720" data-lg-video='{"source": [{"src":"aux/p1.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>Coordination</h4>"><video muted preload="metadata"><source src="aux/p1.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
+                        <a href="aux/ex.mp4" class="media-item" data-lg-size="1280-720" data-lg-video='{"source": [{"src":"aux/ex.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>Exercices de souplesse</h4>"><video muted preload="metadata"><source src="aux/ex.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
+                        <a href="aux/danse.mp4" class="media-item" data-lg-size="1280-720" data-lg-video='{"source": [{"src":"aux/danse.mp4", "type":"video/mp4"}], "attributes": {"preload": "none", "controls": true}}' data-sub-html="<h4>La renaissance par la danse !</h4><p>Le résultat de mois de travail : la joie retrouvée dans le mouvement.</p>"><video muted preload="metadata"><source src="aux/danse.mp4#t=0.5" type="video/mp4"></video><div class="media-overlay"><i class="fas fa-play"></i></div></a>
                     </div>
-                    <div class="grid grid-cols-1 gap-8 mt-8">
-                        <div class="text-center">
-                            <img src="aux/pip.jpg" alt="Roselyne" class="rounded-lg shadow-md w-[400px] h-[400px] object-cover mx-auto">      
-                            <p class="mt-2 text-sm text-gray-600"><b>N'hésitez pas à me contacter: pipernos.roselyne@gmail.com</b></p>
-                        </div>
-                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Remerciements Section -->
+        <section id="remerciements" class="mb-16" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-800 mb-8">Remerciements</h2>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <p class="text-center text-lg mb-8">Ce chemin, je ne l'ai pas parcouru seule. Une troupe précieuse m'a accompagnée. Ma gratitude est immense.</p>
+                <div id="gallery-remerciements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/paf.jpg" data-sub-html="<h4>Pr. Stéphane PALFI</h4><p>Neurochirurgien. Brillant autant sur le plan médical que sur le plan humain.</p>"><img src="aux/paf.jpg" alt="Pr. Stéphane Palfy" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Pr. Stéphane PALFI</h4><p class="text-sm text-gray-500">Neurochirurgien</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/doc.jpg" data-sub-html="<h4>Dr. Yara BEAUGENDRE</h4><p>Neurologue. Toujours rassurante et positive.</p>"><img src="aux/doc.jpg" alt="Dr. Yara BEAUGENDRE" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Yara BEAUGENDRE</h4><p class="text-sm text-gray-500">Neurologue</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/guru.jpg" data-sub-html="<h4>Dr. Yann-Suhan SÉNOVA</h4><p>Neurochirurgien. L'ingénieur du cerveau.</p>"><img src="aux/guru.jpg" alt="Dr. Yann-Suhan SÉNOVA" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. JM GURRUCHAGA</h4><p class="text-sm text-gray-500">Neurochirurgien</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/julie.jpg" data-sub-html="<h4>Dr. Julie Schuler</h4><p>Médecin généraliste. Entièrement dévouée.</p>"><img src="aux/julie.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Julie Schuler</h4><p class="text-sm text-gray-500">Médecin généraliste</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/guru.jpg" data-sub-html="<h4>Dr J.M. GURRUCHAGA</h4><p>Neurologue. Un virtuose des appareils de stimulation.</p>"><img src="aux/guru.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr J.M. GURRUCHAGA</h4><p class="text-sm text-gray-500">Neurologue</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/gus.jpg" data-sub-html="<h4>Christophe et Bernadette</h4><p>Infirmiers. Un soutien de tous les instants.</p>"><img src="aux/gus.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Christophe et Bernadette</h4><p class="text-sm text-gray-500">Infirmiers</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- Commentaires Section -->
-        <section id="commentaires" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-blue-900 mb-6">Commentaires</h2>
-            <div class="comment-section">
-                <form class="comment-form">
-                    <textarea placeholder="Partagez votre expérience..." rows="4"></textarea>
-                    <button type="submit" class="btn">Publier</button>
-                </form>
-                <div id="comments-list" class="mt-8">
-                    <!-- Les commentaires seront ajoutés ici dynamiquement -->
+        <!-- Message d'espoir & Contact -->
+        <section id="contact" class="mb-16 text-center" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">Un Message d'Espoir</h2>
+            <div class="diary-entry max-w-4xl mx-auto">
+                <p class="text-lg mb-6">J'ai écrit ce recueil pour transmettre du courage et de la ténacité, car demain, ce sera peut-être votre tour de voir la lumière. Mon parcours est unique, et j'invite toutes les personnes concernées à oser, à sauter le pas.</p>
+                <div class="my-8">
+                     <iframe class="rounded-lg shadow-md w-full max-w-[640px] h-auto aspect-video object-cover mx-auto" src="https://www.youtube.com/embed/NuxAXG6aQCM?si=2Ivm9F7CQRdUWJtR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
+                <p class="font-semibold">N'hésitez pas à me contacter : <a href="mailto:pipernos.roselyne@gmail.com" class="text-blue-600 hover:underline">pipernos.roselyne@gmail.com</a></p>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-blue-900 mb-6">Contact</h2>
-            <p class="mb-6">Pour tous les chercheurs du monde entier souhaintant enrichir la recherche sur les diffénrentes applications de la stimulation cérébrale et à tous ceux qui veulent soutenir la cause.</p>
-            <div class="contact-form">
-                <form action="mailto:neurochirurgie.consultation.hmn@aphp.fr" method="post" enctype="text/plain">
-                    <input type="text" name="name" placeholder="Votre nom" required>
-                    <input type="email" name="email" placeholder="Votre email" required>
-                    <textarea name="message" placeholder="Votre message" rows="6" required></textarea>
-                    <button type="submit" class="btn">Envoyer</button>
-                </form>
+        <!-- Don Section -->
+        <section id="faire-un-don" class="mb-12 text-center" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">Soutenir la Recherche</h2>
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+                <p class="mb-6">Votre soutien est précieux pour faire avancer la recherche sur la stimulation cérébrale. Chaque don compte.</p>
+                <a href="https://www.fondation-hopital.fr/faire-un-don" target="_blank" class="btn inline-block">Faire un don à l'ARSC</a>
+                <p class="text-sm text-gray-500 mt-4">Vos dons sont déductibles des impôts.</p>
             </div>
         </section>
-
-        <!-- Faire un don Section -->
-        <section id="faire-un-don" class="mb-12" data-aos="fade-up">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-blue-900 mb-6">Faire un don</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <p class="mb-6">Votre soutien est précieux pour faire avancer la recherche sur la stimulation cérébrale et aider d'autres patients. Chaque don compte et contribue à améliorer la qualité de vie des personnes atteintes.</p>
-                <div class="text-center">
-                    <h3 class="text-xl font-semibold text-blue-800 mb-4">Faire un don à l'ARSC (Association de Recherche sur la Stimulation Cérébrale)</h3>
-                    <p class="mb-4">Soutenez notre démarche et la recherche</p>
-                    <a href="https://www.fondation-hopital.fr/faire-un-don" target="_blank" class="btn inline-block">Faire un don</a>
-                </div>
-                <div class="mt-8 text-center">
-                    <p class="text-sm text-gray-600">Vos dons sont déductibles des impôts à hauteur de 66% pour les particuliers et 60% pour les entreprises.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Modal pour la galerie -->
-        <div id="mediaModal" class="modal">
-            <div class="modal-content">
-                <span class="modal-close">&times;</span>
-                <div class="modal-nav">
-                    <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                    <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <div class="modal-media"></div>
-                <div class="modal-caption"></div>
-            </div>
-        </div>
     </main>
 
-    <footer class="bg-blue-900 text-white py-4 mt-8" style="font-family: 'Playfair Display', serif;">
+    <footer class="bg-gray-800 text-white py-6 mt-8">
         <div class="container mx-auto px-4 text-center">
             <p>© 2025 Site conçu par JPZ. Tous droits réservés.</p>
-            <p>Contact : <a href="mailto:22_theta.preneurs@icloud.com" class="text-blue-300 hover:underline">22_theta.preneurs@icloud.com</a></p>
+            <p>Contact du développeur : <a href="mailto:22_theta.preneurs@icloud.com" class="text-blue-400 hover:underline">22_theta.preneurs@icloud.com</a></p>
         </div>
     </footer>
 
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/video/lg-video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+
     <script>
-        // Initialisation de AOS (Animate On Scroll)
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Gestion du menu mobile
-        const mobileMenuBtn = document.querySelector('.mobile-menu');
-        const desktopMenu = document.querySelector('.desktop-menu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            desktopMenu.classList.toggle('hidden');
-        });
-
-        // Gestion du header au scroll
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Gestion des commentaires
-        const commentForm = document.querySelector('.comment-form');
-        const commentsList = document.getElementById('comments-list');
-
-        commentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const textarea = commentForm.querySelector('textarea');
-            const comment = textarea.value;
-            
-            if (comment.trim()) {
-                const commentElement = document.createElement('div');
-                commentElement.className = 'diary-entry mt-4';
-                commentElement.innerHTML = `
-                    <div class="diary-date">${new Date().toLocaleDateString('fr-FR')}</div>
-                    <p>${comment}</p>
-                `;
-                commentsList.prepend(commentElement);
-                textarea.value = '';
-            }
-        });
-
-        // Gestion de la galerie modale
-        const modal = document.getElementById('mediaModal');
-        const modalMedia = modal.querySelector('.modal-media');
-        const modalCaption = modal.querySelector('.modal-caption');
-        const closeBtn = modal.querySelector('.modal-close');
-        const prevBtn = modal.querySelector('.prev-btn');
-        const nextBtn = modal.querySelector('.next-btn');
-        let currentMediaIndex = 0;
-        let mediaItems = [];
-
-        // Fonction pour créer un conteneur de média
-        function createMediaContainer(media, caption) {
-            const container = document.createElement('div');
-            container.className = 'media-container';
-            
-            if (media.tagName === 'VIDEO') {
-                const video = document.createElement('video');
-                video.src = media.querySelector('source').src;
-                video.controls = true;
-                container.appendChild(video);
-            } else {
-                const img = document.createElement('img');
-                img.src = media.src;
-                container.appendChild(img);
-            }
-
-            const overlay = document.createElement('div');
-            overlay.className = 'media-overlay';
-            overlay.innerHTML = '<i class="fas fa-expand"></i>';
-            container.appendChild(overlay);
-
-            container.addEventListener('click', () => {
-                openModal(media, caption);
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Initialize AOS (Animate On Scroll)
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50,
             });
 
-            return container;
-        }
-
-        // Fonction pour ouvrir la modale
-        function openModal(media, caption) {
-            mediaItems = Array.from(document.querySelectorAll('.media-container'));
-            currentMediaIndex = mediaItems.indexOf(media.parentElement);
-            
-            updateModalContent();
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Fonction pour mettre à jour le contenu de la modale
-        function updateModalContent() {
-            const currentMedia = mediaItems[currentMediaIndex];
-            const media = currentMedia.querySelector('img, video');
-            const caption = currentMedia.querySelector('p')?.textContent || '';
-
-            modalMedia.innerHTML = '';
-            if (media.tagName === 'VIDEO') {
-                const video = document.createElement('video');
-                video.src = media.src;
-                video.controls = true;
-                video.autoplay = true;
-                modalMedia.appendChild(video);
-            } else {
-                const img = document.createElement('img');
-                img.src = media.src;
-                modalMedia.appendChild(img);
-            }
-
-            modalCaption.textContent = caption;
-        }
-
-        // Gestionnaires d'événements pour la modale
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        prevBtn.addEventListener('click', () => {
-            currentMediaIndex = (currentMediaIndex - 1 + mediaItems.length) % mediaItems.length;
-            updateModalContent();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            currentMediaIndex = (currentMediaIndex + 1) % mediaItems.length;
-            updateModalContent();
-        });
-
-        // Fermer la modale avec la touche Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Transformer les sections de médias existantes
-        document.querySelectorAll('section').forEach(section => {
-            const mediaElements = section.querySelectorAll('img, video');
-            if (mediaElements.length > 0) {
-                const mediaGrid = document.createElement('div');
-                mediaGrid.className = 'media-grid';
-                
-                mediaElements.forEach(media => {
-                    const caption = media.nextElementSibling?.textContent || '';
-                    const container = createMediaContainer(media, caption);
-                    mediaGrid.appendChild(container);
+            // 2. Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu');
+            const desktopMenu = document.querySelector('.desktop-menu');
+            if (mobileMenuBtn && desktopMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    if (desktopMenu.style.display === 'flex') {
+                        desktopMenu.style.display = 'none';
+                    } else {
+                        desktopMenu.style.display = 'flex';
+                        desktopMenu.classList.add('flex-col', 'absolute', 'top-full', 'right-4', 'bg-gray-800', 'p-4', 'rounded-md', 'space-y-2');
+                    }
                 });
-
-                section.querySelector('.bg-white').appendChild(mediaGrid);
             }
+            
+            // 3. Initialize all Media Galleries with lightGallery
+            const galleryOptions = {
+                selector: 'a',
+                plugins: [lgVideo, lgThumbnail],
+                speed: 500,
+                download: false,
+                licenseKey: '0000-0000-000-0000',
+                // --- NEW: THE FIX FOR VIDEO SIZING ---
+                videoMaxWidth: '100%', 
+            };
+
+            lightGallery(document.getElementById('gallery-diagnostic'), galleryOptions);
+            lightGallery(document.getElementById('gallery-operations'), galleryOptions);
+            lightGallery(document.getElementById('gallery-reeducation'), galleryOptions);
+            lightGallery(document.getElementById('gallery-florian'), galleryOptions);
+            lightGallery(document.getElementById('gallery-remerciements'), galleryOptions);
         });
     </script>
 </body>
