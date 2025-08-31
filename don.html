@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faire un Don - Association de Recherche sur la Stimulation Cérébrale</title>
+    
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --text-color: #34495e;
+            --background-color: #fdfdfd;
+            --card-bg-color: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .donation-form {
+            background: var(--card-bg-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .amount-option {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .amount-option:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .amount-option.selected {
+            border-color: var(--success-color);
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .security-badges {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .security-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .iban-display {
+            background: #f8f9fa;
+            border: 2px dashed var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .iban-code {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+        }
+
+        .copy-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--success-color));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .step.active {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .step.completed {
+            color: var(--success-color);
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--border-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        .step.active .step-number {
+            background: var(--secondary-color);
+        }
+
+        .step.completed .step-number {
+            background: var(--success-color);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 3rem;
+            color: var(--success-color);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .security-badges {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-800" style="font-family: 'Playfair Display', serif;">
+                    <a href="index.html" class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-arrow-left mr-2"></i>Retour au site
+                    </a>
+                </h1>
+                <div class="text-right">
+                    <h2 class="text-lg font-semibold text-gray-700">ARSC</h2>
+                    <p class="text-sm text-gray-500">Association de Recherche sur la Stimulation Cérébrale</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Informations sur l'association -->
+        <div class="info-card">
+            <h2 class="text-2xl font-bold mb-4">Soutenez la Recherche sur la Stimulation Cérébrale</h2>
+            <p class="mb-4">Votre don contribue directement au financement de la recherche sur la maladie de Parkinson et les nouvelles thérapies innovantes. Chaque euro compte pour faire avancer la science et améliorer la vie des patients.</p>
+            
+            <div class="security-badges">
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Paiement Sécurisé</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-certificate"></i>
+                    <span>Association Reconnue</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>Déductible d'Impôts</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicateur de progression -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <span>Montant</span>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <span>Informations</span>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <span>Confirmation</span>
+            </div>
+        </div>
+
+        <!-- Formulaire de don -->
+        <form id="donationForm" class="donation-form">
+            <!-- Étape 1: Sélection du montant -->
+            <div id="step1-content">
+                <h3 class="text-xl font-bold mb-4">Choisissez le montant de votre don</h3>
+                
+                <div class="amount-options">
+                    <div class="amount-option" data-amount="10">
+                        <div class="text-lg font-bold">10€</div>
+                        <div class="text-sm text-gray-600">Don de base</div>
+                    </div>
+                    <div class="amount-option" data-amount="25">
+                        <div class="text-lg font-bold">25€</div>
+                        <div class="text-sm text-gray-600">Don régulier</div>
+                    </div>
+                    <div class="amount-option" data-amount="50">
+                        <div class="text-lg font-bold">50€</div>
+                        <div class="text-sm text-gray-600">Don généreux</div>
+                    </div>
+                    <div class="amount-option" data-amount="100">
+                        <div class="text-lg font-bold">100€</div>
+                        <div class="text-sm text-gray-600">Don important</div>
+                    </div>
+                    <div class="amount-option" data-amount="250">
+                        <div class="text-lg font-bold">250€</div>
+                        <div class="text-sm text-gray-600">Don majeur</div>
+                    </div>
+                    <div class="amount-option" data-amount="500">
+                        <div class="text-lg font-bold">500€</div>
+                        <div class="text-sm text-gray-600">Don exceptionnel</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ou saisissez un montant personnalisé :</label>
+                    <input type="number" id="customAmount" class="form-input" placeholder="Montant en euros" min="1" step="1">
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="btn" onclick="nextStep()">Continuer</button>
+                </div>
+            </div>
+
+            <!-- Étape 2: Informations personnelles -->
+            <div id="step2-content" class="hidden">
+                <h3 class="text-xl font-bold mb-4">Vos informations</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">Prénom *</label>
+                        <input type="text" id="firstName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nom *</label>
+                        <input type="text" id="lastName" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Adresse</label>
+                    <input type="text" id="address" class="form-input" placeholder="Adresse complète">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">Code postal</label>
+                        <input type="text" id="postalCode" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ville</label>
+                        <input type="text" id="city" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Message (optionnel)</label>
+                    <textarea id="message" class="form-input" rows="3" placeholder="Votre message de soutien..."></textarea>
+                </div>
+
+                <div class="flex justify-between">
+                    <button type="button" class="btn" onclick="prevStep()">Retour</button>
+                    <button type="button" class="btn" onclick="nextStep()">Continuer</button>
+                </div>
+            </div>
+
+            <!-- Étape 3: Confirmation et IBAN -->
+            <div id="step3-content" class="hidden">
+                <h3 class="text-xl font-bold mb-4">Confirmation de votre don</h3>
+                
+                <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                    <h4 class="font-bold mb-2">Récapitulatif :</h4>
+                    <p><strong>Montant :</strong> <span id="finalAmount">0</span>€</p>
+                    <p><strong>Nom :</strong> <span id="finalName"></span></p>
+                    <p><strong>Email :</strong> <span id="finalEmail"></span></p>
+                </div>
+
+                <div class="iban-display">
+                    <h4 class="font-bold mb-2">Virement bancaire vers l'ARSC</h4>
+                    <div class="iban-code" id="ibanDisplay">FR76 3000 2005 5000 0000 0000 000</div>
+                    <button type="button" class="copy-btn" onclick="copyIBAN()">
+                        <i class="fas fa-copy"></i> Copier l'IBAN
+                    </button>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <h4 class="font-bold text-blue-800 mb-2">Instructions :</h4>
+                    <ol class="list-decimal list-inside text-blue-700 space-y-1">
+                        <li>Copiez l'IBAN ci-dessus</li>
+                        <li>Effectuez un virement depuis votre banque</li>
+                        <li>Indiquez votre nom dans la référence du virement</li>
+                        <li>Vous recevrez un reçu par email</li>
+                    </ol>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg mb-4">
+                    <h4 class="font-bold text-green-800 mb-2">Avantages fiscaux :</h4>
+                    <p class="text-green-700">Votre don est déductible à 66% de vos impôts. Un don de <span id="taxAmount">0</span>€ ne vous coûte que <span id="realCost">0</span>€ après déduction fiscale.</p>
+                </div>
+
+                <div class="flex justify-between">
+                    <button type="button" class="btn" onclick="prevStep()">Retour</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> Confirmer le don
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Message de succès -->
+        <div id="successMessage" class="donation-form hidden">
+            <div class="success-message">
+                <div class="success-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Merci pour votre don !</h3>
+                <p class="mb-4">Votre générosité contribue directement à faire avancer la recherche sur la stimulation cérébrale. Vous recevrez un email de confirmation avec les détails de votre don.</p>
+                <a href="index.html" class="btn">Retour à l'accueil</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 ARSC - Association de Recherche sur la Stimulation Cérébrale</p>
+            <p class="text-sm text-gray-400 mt-2">Tous les dons sont utilisés exclusivement pour la recherche médicale</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        let selectedAmount = 0;
+
+        // Gestion des étapes
+        function nextStep() {
+            if (currentStep === 1) {
+                if (selectedAmount === 0) {
+                    alert('Veuillez sélectionner un montant');
+                    return;
+                }
+            } else if (currentStep === 2) {
+                if (!validateStep2()) {
+                    return;
+                }
+                updateStep3();
+            }
+            
+            document.getElementById(`step${currentStep}-content`).classList.add('hidden');
+            currentStep++;
+            document.getElementById(`step${currentStep}-content`).classList.remove('hidden');
+            
+            updateStepIndicator();
+        }
+
+        function prevStep() {
+            document.getElementById(`step${currentStep}-content`).classList.add('hidden');
+            currentStep--;
+            document.getElementById(`step${currentStep}-content`).classList.remove('hidden');
+            updateStepIndicator();
+        }
+
+        function updateStepIndicator() {
+            for (let i = 1; i <= 3; i++) {
+                const step = document.getElementById(`step${i}`);
+                step.classList.remove('active', 'completed');
+                
+                if (i < currentStep) {
+                    step.classList.add('completed');
+                } else if (i === currentStep) {
+                    step.classList.add('active');
+                }
+            }
+        }
+
+        // Sélection du montant
+        document.querySelectorAll('.amount-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.amount-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedAmount = parseInt(this.dataset.amount);
+                document.getElementById('customAmount').value = '';
+            });
+        });
+
+        document.getElementById('customAmount').addEventListener('input', function() {
+            document.querySelectorAll('.amount-option').forEach(opt => opt.classList.remove('selected'));
+            selectedAmount = parseInt(this.value) || 0;
+        });
+
+        // Validation de l'étape 2
+        function validateStep2() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            if (!firstName || !lastName || !email) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return false;
+            }
+            
+            if (!isValidEmail(email)) {
+                alert('Veuillez saisir une adresse email valide');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Mise à jour de l'étape 3
+        function updateStep3() {
+            document.getElementById('finalAmount').textContent = selectedAmount;
+            document.getElementById('finalName').textContent = 
+                document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+            document.getElementById('finalEmail').textContent = document.getElementById('email').value;
+            
+            const taxAmount = selectedAmount * 0.66;
+            const realCost = selectedAmount - taxAmount;
+            document.getElementById('taxAmount').textContent = selectedAmount;
+            document.getElementById('realCost').textContent = realCost.toFixed(2);
+        }
+
+        // Copie de l'IBAN
+        function copyIBAN() {
+            const iban = document.getElementById('ibanDisplay').textContent;
+            navigator.clipboard.writeText(iban).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copié !';
+                btn.style.background = '#27ae60';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Soumission du formulaire
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Préparation des données
+            const formData = {
+                amount: selectedAmount,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                postalCode: document.getElementById('postalCode').value,
+                city: document.getElementById('city').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Affichage d'un indicateur de chargement
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            // Envoi des données au serveur
+            fetch('http://localhost:5000/api/donations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Succès
+                    document.getElementById('donationForm').classList.add('hidden');
+                    document.getElementById('successMessage').classList.remove('hidden');
+                    
+                    // Mise à jour de l'IBAN avec celui du serveur si différent
+                    if (data.iban) {
+                        document.getElementById('ibanDisplay').textContent = data.iban;
+                    }
+                    
+                    console.log('Don enregistré avec succès:', data);
+                } else {
+                    // Erreur
+                    alert('Erreur lors de l\'enregistrement du don: ' + (data.error || 'Erreur inconnue'));
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Erreur de connexion au serveur. Veuillez réessayer plus tard.');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        function sendConfirmationEmail(data) {
+            // Simulation d'envoi d'email
+            console.log('Email de confirmation envoyé à:', data.email);
+        }
+
+        // Initialisation
+        updateStepIndicator();
+    </script>
+</body>
+</html>

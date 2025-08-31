@@ -3,23 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Le parcours inspirant de Roselyne Pipernos face à la maladie de Parkinson, un témoignage d'espoir et de courage.">
+    <meta name="keywords" content="Parkinson, stimulation cérébrale, résilience, témoignage, médecine">
+    <meta name="author" content="Roselyne Pipernos">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Roselyne Pipernos - Une Histoire de Résilience">
+    <meta property="og:description" content="Le parcours inspirant de Roselyne Pipernos face à la maladie de Parkinson">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://votre-domaine.com">
+    <meta property="og:image" content="aux/rosy.jpg">
+    <link rel="canonical" href="https://votre-domaine.com">
     <title>Roselyne Pipernos - Une Histoire de Résilience</title>
     
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet"></noscript>
     
     <!-- Animate on Scroll (AOS) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" /></noscript>
     
     <!-- lightGallery for Media -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-video.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-video.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-video.min.css" />
+    </noscript>
     
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <style>
         :root {
@@ -41,6 +58,10 @@
             color: var(--text-color);
             background-color: var(--background-color);
             font-size: 18px;
+            /* Optimisations pour les performances */
+            text-rendering: optimizeSpeed;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         h1, h2, h3, h4 {
@@ -64,6 +85,10 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             border-radius: 0 8px 8px 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Optimisations pour les performances */
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .diary-entry:hover {
@@ -116,6 +141,9 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1.5rem;
+            /* Optimisations pour les performances */
+            contain: layout style paint;
+            will-change: scroll-position;
         }
 
         .media-item {
@@ -127,9 +155,13 @@
             cursor: pointer;
             aspect-ratio: 1 / 1;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Optimisations pour les performances */
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
         .media-item:hover {
-            transform: translateY(-5px) scale(1.03);
+            transform: translateY(-3px) scale(1.02) translateZ(0);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
         
@@ -139,11 +171,15 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+            /* Optimisations pour les performances */
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .media-item:hover img,
         .media-item:hover video {
-            transform: scale(1.1);
+            transform: scale(1.05) translateZ(0);
         }
 
         .media-overlay {
@@ -157,6 +193,10 @@
             transition: opacity 0.3s ease;
             color: white;
             font-size: 2.5rem;
+            /* Optimisations pour les performances */
+            will-change: opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
         .media-item:hover .media-overlay {
             opacity: 1;
@@ -223,7 +263,7 @@
         <!-- Présentation Section -->
         <section id="presentation" class="mb-16 scroll-mt-24" data-aos="fade-up">
             <div class="text-center">
-                <img src="aux/rosy.jpg" alt="Portrait de Roselyne Pipernos" class="rounded-full shadow-lg w-48 h-48 object-cover mx-auto mt-24 mb-8 border-4 border-white" data-aos="zoom-in">
+                <img src="aux/rosy.jpg" loading="lazy" decoding="async" alt="Portrait de Roselyne Pipernos" class="rounded-full shadow-lg w-48 h-48 object-cover mx-auto mt-24 mb-8 border-4 border-white" data-aos="zoom-in">
                 <h2 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-4" style="font-family: 'Playfair Display', serif;">Une Histoire de Résilience</h2>
                 <p class="text-xl text-gray-500 max-w-3xl mx-auto">Le parcours inspirant de Roselyne Pipernos face à la maladie de Parkinson, un témoignage d'espoir et de courage.</p>
             </div>
@@ -259,11 +299,11 @@
                     <h3 class="text-2xl font-semibold text-gray-700 mb-6">1. Le Diagnostic</h3>
                     <div class="media-grid" id="gallery-diagnostic">
                         <a href="aux/dance.mp4" class="media-item" data-sub-html="<h4>Tremblements visibles avant le diagnostic.</h4><p>Les premiers signes de la maladie commençaient à impacter le quotidien.</p>">
-                            <video muted preload="metadata"><source src="aux/dance.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/dance.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
                         <a href="aux/med.jpg" class="media-item" data-sub-html="<h4>Premières observations médicales.</h4><p>Rencontres avec des neurologues pour comprendre et nommer la maladie.</p>">
-                            <img src="aux/med.jpg" alt="Consultation médicale">
+                            <img src="aux/med.jpg" alt="Consultation médicale" loading="lazy" decoding="async">
                             <div class="media-overlay"><i class="fas fa-search-plus"></i></div>
                         </a>
                     </div>
@@ -274,11 +314,11 @@
                     <h3 class="text-2xl font-semibold text-gray-700 mb-6">2. Les Opérations</h3>
                     <div class="media-grid" id="gallery-operations">
                         <a href="aux/op.mp4" class="media-item" data-sub-html="<h4>Juste après l'opération.</h4><p>Les premiers moments de récupération, remplis d'espoir.</p>">
-                            <video muted preload="metadata"><source src="aux/op.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/op.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
                         <a href="aux/op1.jpg" class="media-item" data-sub-html="<h4>Pose du stimulateur cérébral.</h4><p>Une étape chirurgicale cruciale, porteuse d'un immense changement.</p>">
-                            <img src="aux/op1.jpg" alt="Pose du stimulateur">
+                            <img src="aux/op1.jpg" alt="Pose du stimulateur" loading="lazy" decoding="async">
                             <div class="media-overlay"><i class="fas fa-search-plus"></i></div>
                         </a>
                     </div>
@@ -289,7 +329,7 @@
                 
                 <!-- Étape 4: Exercices dirigés -->
                 <div class="mb-12">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-6">3. Balnéothérapie etExercices de Renforcement Musculaire avec Yohann Millotte et Florian Julien</h3>
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-6">3. Balnéothérapie et Exercices de Renforcement Musculaire avec Yohann Millotte et Florian Julien</h3>
                     <p class="text-gray-500 mb-6">Une série d'exercices ciblés pour reconquérir chaque mouvement.</p>
                     <div class="media-grid" id="gallery-reeducation">
 
@@ -299,62 +339,62 @@
 
 
                         <a href="https://www.youtube.com/embed/rI5DGIx-lLw" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/rI5DGIx-lLw/maxresdefault.jpg" alt="Vidéo YouTube balnéothérapie">
+                            <img src="https://img.youtube.com/vi/rI5DGIx-lLw/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube balnéothérapie">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
 
                         <a href="https://www.youtube.com/embed/KlEbKaKKy98" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/KlEbKaKKy98/maxresdefault.jpg" alt="Vidéo YouTube aquagym">
+                            <img src="https://img.youtube.com/vi/KlEbKaKKy98/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube aquagym">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
 
                         <a href="aux/elastic.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/elastic.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/elastic.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
                         <a href="https://www.youtube.com/embed/__frc2w-4l8" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/__frc2w-4l8/maxresdefault.jpg" alt="Vidéo YouTube exercices">
+                            <img src="https://img.youtube.com/vi/__frc2w-4l8/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube exercices">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
                         
 
                         <a href="https://www.youtube.com/embed/nfhCSuYkeGk" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/nfhCSuYkeGk/maxresdefault.jpg" alt="Vidéo YouTube exercices">
+                            <img src="https://img.youtube.com/vi/nfhCSuYkeGk/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube exercices">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
 
                         <a href="aux/t1.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/t1.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/t1.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
                         <a href="https://www.youtube.com/embed/KLoPP5jCzHU" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/KLoPP5jCzHU/maxresdefault.jpg" alt="Vidéo YouTube exercices">
+                            <img src="https://img.youtube.com/vi/KLoPP5jCzHU/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube exercices">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
 
                         <a href="https://www.youtube.com/embed/sJV-H6EUivE" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/sJV-H6EUivE/maxresdefault.jpg" alt="Vidéo YouTube exercices">
+                            <img src="https://img.youtube.com/vi/sJV-H6EUivE/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube exercices">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
 
 
 
                         <a href="https://www.youtube.com/embed/wxGqyJrxlsw" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/wxGqyJrxlsw/maxresdefault.jpg" alt="Vidéo YouTube exercices">
+                            <img src="https://img.youtube.com/vi/wxGqyJrxlsw/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube exercices">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
 
                       
                         <a href="aux/s1.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/s1.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/s1.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
 
                         <a href="aux/s2.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/s2.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/s2.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
@@ -363,20 +403,20 @@
 
 
                         <a href="aux/s4.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/s4.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/s4.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
 
 
                         <a href="aux/s5.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/s5.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/s5.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
 
                         <a href="aux/s6.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/s6.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/s6.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
@@ -384,33 +424,33 @@
                     
 
                         <a href="aux/p1.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/p1.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/p1.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
                         <a href="aux/p2.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/p2.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/p2.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
                         <a href="aux/p3.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/p3.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/p3.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
 
                         <a href="aux/ex.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/ex.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/ex.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
                         <a href="aux/danse.mp4" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>">
-                            <video muted preload="metadata"><source src="aux/danse.mp4#t=0.5" type="video/mp4"></video>
+                            <video muted preload="metadata" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23f0f0f0'/%3E%3C/svg%3E"><source src="aux/danse.mp4#t=0.5" type="video/mp4"></video>
                             <div class="media-overlay"><i class="fas fa-play"></i></div>
                         </a>
 
                         <a href="https://www.youtube.com/embed/st3KOPLyNHE" class="media-item" data-sub-html="<h4>Exercices de balnéothérapie.</h4><p>Avec Yohann Millotte, la douceur de l'eau pour retrouver la fluidité.</p>" data-iframe="true">
-                            <img src="https://img.youtube.com/vi/st3KOPLyNHE/maxresdefault.jpg" alt="Vidéo YouTube exercices">
+                            <img src="https://img.youtube.com/vi/st3KOPLyNHE/maxresdefault.jpg" loading="lazy" decoding="async" alt="Vidéo YouTube exercices">
                             <div class="media-overlay"><i class="fab fa-youtube"></i></div>
                         </a>
 
@@ -424,7 +464,7 @@
         
 
         <section id="remerciements" class="mb-16" data-aos="fade-up">
-            <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-800 mb-8">Remerciements à l'équipe médicale de Henrie Mondor</h2>
+            <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-800 mb-8">Remerciements à l'équipe médicale de Henri Mondor</h2>
             <div class="bg-white p-8 rounded-lg shadow-lg">
                 <p class="text-center text-lg mb-8">Ce chemin, je ne l'ai pas parcouru seule. Une troupe précieuse m'a accompagnée.</p>
                 <p><strong>À l’attention du Professeur Palfi et de son équipe,</strong></p>
@@ -454,15 +494,14 @@
 
 
     <div id="gallery-remerciements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-        <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/paf.jpg" data-sub-html="<h4>Pr. Stéphane PALFI</h4><p>Neurochirurgien</p>"><img src="aux/paf.jpg" alt="Pr. Stéphane Palfy" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Pr. Stéphane PALFI</h4><p class="text-sm text-gray-500">Neurochirurgien</p> <p><a href="https://www.ijclab.in2p3.fr/actualite/beams-la-start-up-ijclaboise-laureate-du-concours-i-lab-2023/"> Lien de sa start-up</a></p></div>
-        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/guru.jpg" data-sub-html="<h4></h4><p>Neurologue</p>"><img src="aux/guru.jpg" alt="Dr. Gurruchaga" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. JM GURRUCHAGA</h4><p class="text-sm text-gray-500">Neurologue</p></div>
-        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/senova.png" data-sub-html="<h4></h4><p></p>"><img src="aux/senova.png" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr Yann-Suhan SENOVA</h4><p class="text-sm text-gray-500"> <a href="https://youtu.be/rhhxQi9Ynpg?si=CN7rCwGZnq2AhXAB">Neurochirurgien l'ingénieur du cerveau</a></p></div>
-        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/doc.jpg" data-sub-html="<h4>Dr. Yara BEAUGENDRE</h4><p>Neurologue. Toujours rassurante et positive.</p>"><img src="aux/doc.jpg" alt="Dr. Yara BEAUGENDRE" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Yara BEAUGENDRE</h4><p class="text-sm text-gray-500">Neurophysicienne</p></div>
-        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/inf.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/inf.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Carole, infirmière de nuit</h4><p class="text-sm text-gray-500">Nous avons eu les atômes crochus dès sa première visite. Très professionnelle, très attentive et très perspicace, elle a été très pédagogique et rassurante face à toutes mes préoccupations.</p></div>
+        <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/palf.jpg" data-sub-html="<h4>Pr. Stéphane PALFI</h4><p>Neurochirurgien</p>"><img src="aux/palf.jpg" loading="lazy" decoding="async" alt="Pr. Stéphane Palfy" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Pr. Stéphane PALFI</h4><p class="text-sm text-gray-500">Neurochirurgien</p> <p><a href="https://www.ijclab.in2p3.fr/actualite/beams-la-start-up-ijclaboise-laureate-du-concours-i-lab-2023/"> Lien de sa start-up</a></p></div>
+        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/guru.jpg" data-sub-html="<h4></h4><p>Neurologue</p>"><img src="aux/guru.jpg" loading="lazy" decoding="async" alt="Dr. Gurruchaga" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. JM GURRUCHAGA</h4><p class="text-sm text-gray-500">Neurologue</p></div>
+        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/doc.jpg" data-sub-html="<h4>Dr. Yara BEAUGENDRE</h4><p>Neurologue. Toujours rassurante et positive.</p>"><img src="aux/doc.jpg" loading="lazy" decoding="async" alt="Dr. Yara BEAUGENDRE" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Yara BEAUGENDRE</h4><p class="text-sm text-gray-500">Neurophysicienne</p></div>
+                                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/inf.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/inf.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Carole, infirmière de nuit</h4><p class="text-sm text-gray-500">Nous avons eu les atomes crochus dès sa première visite. Très professionnelle, très attentive et très perspicace, elle a été très pédagogique et rassurante face à toutes mes préoccupations.</p></div>
       
-        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sec.jpg" data-sub-html="<h4>Diogou</h4><p></p>"><img src="aux/sec.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Diogou</h4><p class="text-sm text-gray-500">Sécrétaire</p></div>
-        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sec1.jpg" data-sub-html="<h4>Diogou</h4><p></p>"><img src="aux/sec1.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Maëva</h4><p class="text-sm text-gray-500">Sécrétaire</p></div>
-        <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sec2.jpg" data-sub-html="<h4>Diogou</h4><p></p>"><img src="aux/sec2.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Ana</h4><p class="text-sm text-gray-500">Sécrétaire</p></div>
+                                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sec.jpg" data-sub-html="<h4>Diogou</h4><p></p>"><img src="aux/sec.jpg" loading="lazy" decoding="async" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Diogou</h4><p class="text-sm text-gray-500">Secrétaire</p></div>
+                                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sec1.jpg" data-sub-html="<h4>Diogou</h4><p></p>"><img src="aux/sec1.jpg" loading="lazy" decoding="async" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Maëva</h4><p class="text-sm text-gray-500">Secrétaire</p></div>
+                                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sec2.jpg" data-sub-html="<h4>Diogou</h4><p></p>"><img src="aux/sec2.jpg" loading="lazy" decoding="async" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Ana</h4><p class="text-sm text-gray-500">Secrétaire</p></div>
 
     </div>
 
@@ -474,13 +513,13 @@
             <div class="bg-white p-8 rounded-lg shadow-lg">
                 
                 <div id="gallery-remerciements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/julie.jpg" data-sub-html="<h4></p>"><img src="aux/julie.jpg" alt="Dr Julie SCHULER" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Julie SCHULER</h4><p class="text-sm text-gray-500">Médécin Généraliste</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/florian.jpg" data-sub-html="<h4></p>"><img src="aux/florian.jpg" alt="kine" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Florian Julien</h4><p class="text-sm text-gray-500">Kiné</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/yohann.jpg" data-sub-html="<h4></h4><p>.</p>"><img src="aux/yohann.jpg" alt="Dr. Yara BEAUGENDRE" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Yohann Millotte</h4><p class="text-sm text-gray-500">kiné</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/Sandra.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/Sandra.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Sandra, Technicienne de labo</h4><p class="text-sm text-gray-500">Avec sa collègue Cindy, elles m'ont agréablement accompagnée depuis plusieurs années avec toujours de professionnalisme et de bonne volonté.
+                                            <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/julie.jpg" data-sub-html="<h4></p>"><img src="aux/julie.jpg" loading="lazy" decoding="async" alt="Dr Julie SCHULER" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Julie SCHULER</h4><p class="text-sm text-gray-500">Médecin Généraliste</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/florian.jpg" data-sub-html="<h4></p>"><img src="aux/florian.jpg" loading="lazy" decoding="async" alt="kine" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Florian Julien</h4><p class="text-sm text-gray-500">Kiné</p></div>
+                                            <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/yohann.jpg" data-sub-html="<h4></h4><p>.</p>"><img src="aux/yohann.jpg" loading="lazy" decoding="async" alt="Dr. Yara BEAUGENDRE" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Yohann Millotte</h4><p class="text-sm text-gray-500">Kiné</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/Sandra.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/Sandra.jpg" loading="lazy" decoding="async" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Sandra, Technicienne de labo</h4><p class="text-sm text-gray-500">Avec sa collègue Cindy, elles m'ont agréablement accompagnée depuis plusieurs années avec toujours de professionnalisme et de bonne volonté.
                     </p></div>    
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/Cindy.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/Cindy.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Cindy</h4><p class="text-sm text-gray-500">Technicienne de labo</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/gus.mp4" data-sub-html="<h4></h4><p></p>"><img src="aux/gus.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Christophe, Infirmier</p><p class="text-sm text-gray-500">Depuis tant d'années, j'ai eu la chance de pouvoir compter sur eux, à la moindre occasion, les plus urgentes comme les plus relatives.</p><p class="text-sm text-gray-500">(cliquez sur la photo pour voir la video)</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/Cindy.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/Cindy.jpg" loading="lazy" decoding="async" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Cindy</h4><p class="text-sm text-gray-500">Technicienne de labo</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/gus.mp4" data-sub-html="<h4></h4><p></p>"><img src="aux/gus.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Christophe, Infirmier</p><p class="text-sm text-gray-500">Depuis tant d'années, j'ai eu la chance de pouvoir compter sur eux, à la moindre occasion, les plus urgentes comme les plus relatives.</p><p class="text-sm text-gray-500">(cliquez sur la photo pour voir la video)</p></div>
 
                 
                 
@@ -493,30 +532,28 @@
             <div class="bg-white p-8 rounded-lg shadow-lg">
                 
                 <div id="gallery-remerciements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/carole.jpg" data-sub-html="<h4>Carole CLAYES</h4><p></p>"><img src="aux/carole.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Carole CLAYES et son fils Raphaël.</h4><p class="text-sm text-gray-500">
+                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/carole.jpg" data-sub-html="<h4>Carole CLAYES</h4><p></p>"><img src="aux/carole.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Carole CLAYES et son fils Raphaël.</h4><p class="text-sm text-gray-500">
                         Toujours proche de moi depuis tant d'années, nous avons régulièrement l'occasion de nous retrouver dans une ambiance familiale. Elle est toujours prête à m'aider surtout dans les circonstances les plus importantes.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/thierry.jpg" data-sub-html="<h4></p>"><img src="aux/thierry.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Thierry CLAYES</h4><p class="text-sm text-gray-500">Ingénieur d'études en Histoire moderne et contemporaine au Centre Roland Mousnier. C'est un ami exceptionnel, un véritable érudit, toujours prêt à accéder à toutes mes requêtes, il me soutien en toutes circonstances de façon quasi inconditionnelle.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/david.jpg" data-sub-html="<h4></p>"><img src="aux/david.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">David Tordjman</h4><p class="text-sm text-gray-500">Dès que je l'ai rencontré, je l'ai surnommé le "Roi David", il est rempli d'amour et de sagesse et généreux. Nous nous sommes connus lors d'une émission de radio et depuis nous ne nous sommes plus lâchés. Il est répond toujours présent lorsque je l'appelle malgré toutes ses occupation.
-                        Je lui souhaite que la force soit toujours en lui.
-                        Adorable, elle prend toujours du temps prendre soin de vous avec beaucoup de gentillesse, de positivité et de réconfort. Elle a un compagnon adorable identique à sa personnamité.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/martine.jpg" data-sub-html="<h4>Dr. Julie SCHULER</h4><p></p>"><img src="aux/martine.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Martine et Marcel</h4><p class="text-sm text-gray-500">Nous nous sommes connus lors d'une croisière et depuis cette occasion on ne s'est plus quitté et leur assistance lors des moments les plus difficiles m'a significativement marquée.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/philippe.jpg" data-sub-html="<h4></p>"><img src="aux/philippe.jpg" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Philippe</h4><p class="text-sm text-gray-500">Riche dans le cœur et dans les actes, il se distingue par des qualités intrinsèques hors normes et hors du commun. C'est un soutien indéfectible, sur qui je peux toujours compter tout commme il pourra toujours compter sur moi.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/syl.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/syl.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Sylvie</h4><p class="text-sm text-gray-500">Ma meilleure amie par tous les temps, omniprésente dans ma vie dans les bons moments comme dans les plus intenses. Nous partageons depuis plus d'une vingtaine d'années une amitié qui s'est muée en une solide fraternité.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/ben.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/ben.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Benjamin Faleyras auteur compositeur</h4><p class="text-sm text-gray-500">On partage une belle et longue amitié d'entraide.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/ruben.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/ruben.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Ruben Kabla, Angiologue</h4><p class="text-sm text-gray-500">Parle peu mais agit beaucoup et de façon significative notamment lorsque j'étais dans une situation délicate. Il est véritablement dévoué à son travail et à ses patients.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/ghania.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/ghania.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Ghania</h4><p class="text-sm text-gray-500">Je la considère comme une petite sœur, c'est une personne rafraichissante dont on peut toujours compter sur son réconfort.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/hattifa.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/hattifa.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Hattifa et sa famille</h4><p class="text-sm text-gray-500">Amie</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sophie.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/sophie.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Sophie de Rieupéroux</h4><p class="text-sm text-gray-500">Une amie adorable, attentionnée, elle n'a pas cessé de prendre de mes nouvelles et me témoigne un soutien indéfectible</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/knath.jpg" data-sub-html="<h4></p>"><img src="aux/knath.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Natanyel Assouline</h4><p class="text-sm text-gray-500">Ami et collaborateur. Il est omniprésent et déborde d'une bienveillance sans pareille.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/frank.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/frank.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Franklin Robert</h4><p class="text-sm text-gray-500">Nous nous sommes connus lorsqu'il était en service au Ministère de l'équipement sous le PR. Chirac</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/andree.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/andree.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Andrée</h4><p class="text-sm text-gray-500">Une amie qui m'a apportée beaucoup de positivité et un soutien sans faille.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/mur.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/mur.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Murielle, infirmière à Dax</h4><p class="text-sm text-gray-500">Adorable, elle prend toujours du temps prendre soin de vous avec beaucoup de gentillesse, de positivité et de réconfort.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/amis.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/amis.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4"></h4><p class="text-sm text-gray-500">Mes amies radiologues qui m'ont soignée durant plusieurs années. Je les ai surnommées mes porte-bonheur.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/carlos.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/carlos.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Carlos et son épouse</h4><p class="text-sm text-gray-500">Serviable, adorable, un ami sur qui on peut toujours compter. Il a une très belle famille avec de très belles valeurs.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/azan.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/azan.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Ruben Hazan</h4><p class="text-sm text-gray-500">Toujours heureux lorsqu'on se revoit, il est toujours bienveillant envers moi et en particulier au sujet de ma santé.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/rose1.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/rose1.jpg" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Rose</h4><p class="text-sm text-gray-500">On s'est rencontrés à même temps qu'Hattifa à Dax, c'est une belle personne remplie de grâce avec qui je suis resté en contact.</p></div>
-                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="#" data-sub-html="<h4></h4><p></p>"><img src="#" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Agnès Frétilles, Rhumatologue à Dax</h4><p class="text-sm text-gray-500">Elle m'a généreusement fait part de son temps et de ses compétences pour m'aider avant l'opération.
-                    </p></div>
+                                            <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/thierry.jpg" data-sub-html="<h4></p>"><img src="aux/thierry.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Thierry CLAYES</h4><p class="text-sm text-gray-500">Ingénieur d'études en Histoire moderne et contemporaine au Centre Roland Mousnier. C'est un ami exceptionnel, un véritable érudit, toujours prêt à accéder à toutes mes requêtes, il me soutient en toutes circonstances de façon quasi inconditionnelle.</p></div>
+                                            <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100"><a href="aux/david.jpg" data-sub-html="<h4></p>"><img src="aux/david.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">David Tordjman</h4><p class="text-sm text-gray-500">Dès que je l'ai rencontré, je l'ai surnommé le "Roi David", il est rempli d'amour et de sagesse et de générosité. Nous nous sommes connus lors d'une émission de radio et depuis nous ne nous sommes plus lâchés. Il répond toujours présent lorsque je l'appelle malgré toutes ses occupations.
+                            Je souhaite que la force soit toujours avec lui.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up"><a href="aux/martine.jpg" data-sub-html="<h4>Dr. Julie SCHULER</h4><p></p>"><img src="aux/martine.jpg" loading="lazy" decoding="async" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Martine et Marcel</h4><p class="text-sm text-gray-500">Nous nous sommes connus lors d'une croisière et depuis cette occasion on ne s'est plus quitté et leur assistance lors des moments les plus difficiles m'a significativement marquée.</p></div>
+                                            <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/philippe.jpg" data-sub-html="<h4></p>"><img src="aux/philippe.jpg" loading="lazy" decoding="async" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Philippe Levy</h4><p class="text-sm text-gray-500">Riche dans le cœur et dans les actes, il se distingue par des qualités intrinsèques hors normes et hors du commun. C'est un soutien indéfectible, sur qui je peux toujours compter tout comme il pourra toujours compter sur moi.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/syl.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/syl.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Sylvie Franklin</h4><p class="text-sm text-gray-500">Ma meilleure amie par tous les temps, omniprésente dans ma vie dans les bons moments comme dans les plus intenses. Nous partageons depuis plus d'une vingtaine d'années une amitié qui s'est muée en une solide fraternité.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/ben.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/ben.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Benjamin Faleyras auteur compositeur</h4><p class="text-sm text-gray-500">On partage une belle et longue amitié d'entraide.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/ruben.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/ruben.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Ruben Kabla, Angiologue</h4><p class="text-sm text-gray-500">Parle peu mais agit beaucoup et de façon significative notamment lorsque j'étais dans une situation délicate. Il est véritablement dévoué à son travail et à ses patients.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/ghania.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/ghania.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Ghania</h4><p class="text-sm text-gray-500">Je la considère comme une petite sœur, c'est une personne rafraichissante dont on peut toujours compter sur le réconfort et la présence.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/hattifa.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/hattifa.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Hattifa et sa famille</h4><p class="text-sm text-gray-500">Une famille unie, qui m'a apportée du bien-être et du réconfort.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/sophie.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/sophie.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Sophie de Rieupéroux</h4><p class="text-sm text-gray-500">Une amie adorable, attentionnée, elle n'a pas cessé de prendre de mes nouvelles et me témoigne un soutien indéfectible</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/knath.jpg" data-sub-html="<h4></p>"><img src="aux/knath.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Natanyel Assouline</h4><p class="text-sm text-gray-500">Ami et collaborateur. Il est omniprésent et déborde d'une bienveillance sans pareille.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/frank.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/frank.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Franklin Robert</h4><p class="text-sm text-gray-500">Nous nous sommes connus lorsqu'il était en service au Ministère de l'équipement sous le PR. Chirac</p></div>
+                                            <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/andree.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/andree.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Andrée</h4><p class="text-sm text-gray-500">Une amie qui m'a apporté beaucoup de positivité et un soutien sans faille.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/mur.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/mur.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Murielle, infirmière à Dax</h4><p class="text-sm text-gray-500">Adorable, elle prend toujours du temps prendre soin de vous avec beaucoup de gentillesse, de positivité et de réconfort.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/amis.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/amis.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4"></h4><p class="text-sm text-gray-500">Mes amies radiologues qui m'ont soignée durant plusieurs années. Je les ai surnommées mes porte-bonheur.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/carlos.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/carlos.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Carlos et son épouse</h4><p class="text-sm text-gray-500">Serviable, adorable, un ami sur qui on peut toujours compter. Il a une très belle famille avec de très belles valeurs.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/azan.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/azan.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Dr. Ruben Hazan</h4><p class="text-sm text-gray-500">Toujours heureux lorsqu'on se revoit, il est toujours bienveillant envers moi et en particulier au sujet de ma santé.</p></div>
+                    <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200"><a href="aux/rose1.jpg" data-sub-html="<h4></h4><p></p>"><img src="aux/rose1.jpg" loading="lazy" decoding="async" alt="ami" class="rounded-full w-40 h-40 object-cover shadow-md"></a><h4 class="font-semibold text-lg mt-4">Rose</h4><p class="text-sm text-gray-500">On s'est rencontrés à même temps qu'Hattifa à Dax, c'est une belle personne remplie de grâce avec qui je suis resté en contact.</p></div>
+                    
 
 
 
@@ -572,7 +609,7 @@
             <h2 class="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">Soutenir la Recherche</h2>
             <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
                 <p class="mb-6">Votre soutien est précieux pour faire avancer la recherche sur la stimulation cérébrale. Chaque don compte.</p>
-                <a href="https://www.fondation-hopital.fr/faire-un-don" target="_blank" class="btn inline-block">Faire un don à l'ARSC</a>
+                <a href="don.html" class="btn inline-block">Faire un don à l'ARSC</a>
                 
             </div>
         </section>
@@ -586,11 +623,11 @@
     </footer>
 
     <!-- JS Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/video/lg-video.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/iframe/lg-iframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/video/lg-video.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/iframe/lg-iframe.min.js" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -599,6 +636,35 @@
                 duration: 800,
                 once: true,
                 offset: 50,
+            });
+
+            // 2. Optimisation du chargement des médias
+            const mediaItems = document.querySelectorAll('.media-item img, .media-item video');
+            
+            // Intersection Observer pour le lazy loading
+            const mediaObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const media = entry.target;
+                        if (media.tagName === 'IMG' && media.dataset.src) {
+                            media.src = media.dataset.src;
+                            media.removeAttribute('data-src');
+                        }
+                        mediaObserver.unobserve(media);
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.1
+            });
+
+            // Observer les éléments média
+            mediaItems.forEach(media => {
+                if (media.tagName === 'IMG' && !media.src) {
+                    media.dataset.src = media.src;
+                    media.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3Crect width="1" height="1" fill="%23f0f0f0"/%3E%3C/svg%3E';
+                }
+                mediaObserver.observe(media);
             });
 
             // 2. Mobile Menu Toggle
